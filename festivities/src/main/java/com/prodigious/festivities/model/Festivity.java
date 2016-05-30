@@ -16,7 +16,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "festivity")
-@NamedQueries({ @NamedQuery(name = "Festivity.deleteAll", query = "DELETE FROM Festivity") })
+@NamedQueries({ 
+	@NamedQuery(name = "Festivity.deleteAll", query = "DELETE FROM Festivity"),
+	@NamedQuery(name = "Festivity.findAll", query = "SELECT NEW com.prodigious.festivities.dto.FestivityDto(f.name, f.place, f.start, f.end) FROM Festivity f")
+	
+})
 public class Festivity {
 
 	@Id
