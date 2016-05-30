@@ -45,5 +45,10 @@ public class RESTFestivityController {
 		return new ResponseEntity<List<?>>(HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/update", method=RequestMethod.POST)
+	public ResponseEntity<?> update(@Valid @RequestBody FestivityDto festivity){
+		this.festivityService.update(festivity);
+		return new ResponseEntity<List<?>>(HttpStatus.OK);
+	}
 	
 }
