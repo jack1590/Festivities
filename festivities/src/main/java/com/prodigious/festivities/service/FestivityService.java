@@ -15,4 +15,5 @@ public interface FestivityService {
 	List<FestivityDto> finAll();
 	List<FestivityDto> findByInfo(FestivityDto festivity);
 	void create(FestivityDto festivity);
+	void update(FestivityDto festivity);
 }

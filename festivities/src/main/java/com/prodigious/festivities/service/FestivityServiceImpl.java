@@ -11,6 +11,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,57 +61,90 @@ public class FestivityServiceImpl implements FestivityService {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<FestivityDto> query = cb.createQuery(FestivityDto.class);
 		Root<Festivity> c = query.from(Festivity.class);
-		query.select(cb.construct(FestivityDto.class, c.get("id"), c.get("name"),
-				c.get("place"), c.get("start"), c.get("end")));
-		
-		Predicate[] predicates = this.createPredicates(festivity,cb,c);
-		
+		query.select(cb.construct(FestivityDto.class, c.get("id"),
+				c.get("name"), c.get("place"), c.get("start"), c.get("end")));
+
+		Predicate[] predicates = this.createPredicates(festivity, cb, c);
+
 		query.where(predicates);
-		
+
 		return em.createQuery(query).getResultList();
 	}
 
 	/**
 	 * Creates predicates to filter festivities
+	 * 
 	 * @param festivity
-	 * @param cb CriteriaBuilder
-	 * @param c Root
+	 * @param cb
+	 *            CriteriaBuilder
+	 * @param c
+	 *            Root
 	 * @return Predicates
 	 */
 	private Predicate[] createPredicates(FestivityDto festivity,
 			CriteriaBuilder cb, Root<Festivity> c) {
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 
-		if (Objects.nonNull(festivity.getName()) && !festivity.getName().isEmpty()) {
-			Predicate aux = cb.like(
-		        cb.upper(c.<String>get("name")), "%"+festivity.getName()+"%");
-		    predicateList.add(aux);
+		if (Objects.nonNull(festivity.getName())
+				&& !festivity.getName().isEmpty()) {
+			Predicate aux = cb.like(cb.upper(c.<String> get("name")), "%"
+					+ festivity.getName() + "%");
+			predicateList.add(aux);
 		}
-		
-		if (Objects.nonNull(festivity.getPlace()) && !festivity.getPlace().isEmpty()) {
-			Predicate aux = cb.like(
-		        cb.upper(c.<String>get("place")), "%"+festivity.getPlace()+"%");
-		    predicateList.add(aux);
+
+		if (Objects.nonNull(festivity.getPlace())
+				&& !festivity.getPlace().isEmpty()) {
+			Predicate aux = cb.like(cb.upper(c.<String> get("place")), "%"
+					+ festivity.getPlace() + "%");
+			predicateList.add(aux);
 		}
-		
-		if (Objects.nonNull(festivity.getStart()) && Objects.nonNull(festivity.getEnd())) {
+
+		if (Objects.nonNull(festivity.getStart())
+				&& Objects.nonNull(festivity.getEnd())) {
 			Predicate aux = cb.equal(cb.upper(c.<String> get("start")),
 					festivity.getStart());
 			predicateList.add(aux);
-			
+
 			aux = cb.equal(cb.upper(c.<String> get("end")), festivity.getEnd());
 			predicateList.add(aux);
 		}
-		
+
 		return predicateList.toArray(new Predicate[predicateList.size()]);
 	}
 
+	/**
+	 * Create a new Festivity into Database
+	 */
 	@Transactional
 	@Override
 	public void create(FestivityDto festivity) {
 		Festivity entity = new Festivity(festivity.getName(),
 				festivity.getPlace(), festivity.getStart(), festivity.getEnd());
 		em.persist(entity);
+	}
+
+	/**
+	 * Update a festivity
+	 */
+	@Transactional
+	@Override
+	public void update(FestivityDto festivity) {
+		if (Objects.isNull(festivity.getId())) {
+			ResourceBundleMessageSource bean = new ResourceBundleMessageSource();
+            bean.setBasename("ValidationMessages");
+			throw new IllegalArgumentException(bean.getMessage("festivity.id.not.null", null, LocaleContextHolder.getLocale()));
+		} else {
+			Festivity entity = em.find(Festivity.class, festivity.getId());
+			this.setDataIntoentity(entity, festivity);
+			em.merge(entity);
+		}
+	}
+
+	private void setDataIntoentity(Festivity entity, FestivityDto festivity) {
+		entity.setName(festivity.getName());
+		entity.setPlace(festivity.getPlace());
+		entity.setStart(festivity.getStart());
+		entity.setEnd(festivity.getEnd());
 	}
 
 }
