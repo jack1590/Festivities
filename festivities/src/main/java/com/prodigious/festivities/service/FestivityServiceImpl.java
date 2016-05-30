@@ -104,4 +104,12 @@ public class FestivityServiceImpl implements FestivityService {
 		return predicateList.toArray(new Predicate[predicateList.size()]);
 	}
 
+	@Transactional
+	@Override
+	public void create(FestivityDto festivity) {
+		Festivity entity = new Festivity(festivity.getName(),
+				festivity.getPlace(), festivity.getStart(), festivity.getEnd());
+		em.persist(entity);
+	}
+
 }

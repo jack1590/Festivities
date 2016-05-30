@@ -39,6 +39,14 @@ public class Festivity {
 	public Festivity() {
 	}
 
+	public Festivity(String name, String place, Date start, Date end) {
+		super();
+		this.name = name;
+		this.place = place;
+		this.start = start;
+		this.end = end;
+	}
+
 	public String getName() {
 		return name;
 	}
