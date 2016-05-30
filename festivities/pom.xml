@@ -138,20 +138,13 @@
 			<version>${mysql.connector.version}</version>
 		</dependency>
 
-		<!-- Apache Commons -->
+		<!-- Validation bean -->
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${apache.commons.version}</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.2.0.Final</version>
 		</dependency>
-
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>${apache.commons.fileupload.version}</version>
-		</dependency>
-
-
+		
 		<!-- Unit Test -->
 		<dependency>
 			<groupId>junit</groupId>
