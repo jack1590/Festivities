@@ -59,7 +59,7 @@ public class FestivityServiceImpl implements FestivityService {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<FestivityDto> query = cb.createQuery(FestivityDto.class);
 		Root<Festivity> c = query.from(Festivity.class);
-		query.select(cb.construct(FestivityDto.class, c.get("name"),
+		query.select(cb.construct(FestivityDto.class, c.get("id"), c.get("name"),
 				c.get("place"), c.get("start"), c.get("end")));
 		
 		Predicate[] predicates = this.createPredicates(festivity,cb,c);

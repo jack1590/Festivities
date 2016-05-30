@@ -18,6 +18,8 @@ import com.prodigious.festivities.adapter.DateAdapter;
 @XmlRootElement(name = "festivity")
 public class FestivityDto {
 	
+	private Long id;
+	
 	@NotNull(message="{festivity.name.not.null}")
 	@Size(min=1, max=255, message="{festivity.name.incorrect.size}")
 	@XmlElement(name = "name")
@@ -41,8 +43,9 @@ public class FestivityDto {
 	public FestivityDto(){
 	}
 	
-	public FestivityDto(String name, String place, Date start, Date end) {
+	public FestivityDto(Long id, String name, String place, Date start, Date end) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.place = place;
 		this.start = start;
