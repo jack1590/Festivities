@@ -14,7 +14,7 @@ import com.prodigious.festivities.adapter.DateAdapter;
  *
  */
 @XmlRootElement(name = "festivity")
-public class FestivyDto {
+public class FestivityDto {
 	
 	@XmlElement(name = "name")
 	private String name;
@@ -30,10 +30,10 @@ public class FestivyDto {
     @XmlJavaTypeAdapter(type = Date.class, value = DateAdapter.class)
 	private Date end;
 	
-	public FestivyDto(){
+	public FestivityDto(){
 	}
 	
-	public FestivyDto(String name, String place, Date start, Date end) {
+	public FestivityDto(String name, String place, Date start, Date end) {
 		super();
 		this.name = name;
 		this.place = place;

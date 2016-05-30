@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
-import com.prodigious.festivities.dto.FestivyDto;
+import com.prodigious.festivities.dto.FestivityDto;
 
 /**
  * Enable batch processing to storage festivities.xml
@@ -38,22 +38,22 @@ public class BatchConfiguration {
     public DataSource dataSource;
     
     @Bean
-    public StaxEventItemReader<FestivyDto> reader() {
+    public StaxEventItemReader<FestivityDto> reader() {
         
-        StaxEventItemReader<FestivyDto> reader = new StaxEventItemReader<>();
+        StaxEventItemReader<FestivityDto> reader = new StaxEventItemReader<>();
 		reader.setResource(new ClassPathResource("festivities.xml"));
 		reader.setFragmentRootElementName("festivity");
 		Jaxb2Marshaller jx = new Jaxb2Marshaller();
-		Class<?>[] clasesToBeBound = {FestivyDto.class};
+		Class<?>[] clasesToBeBound = {FestivityDto.class};
 		jx.setClassesToBeBound(clasesToBeBound);
 		reader.setUnmarshaller(jx);
         return reader;
     }
 
     @Bean
-    public JdbcBatchItemWriter<FestivyDto> writer() {
-    	JdbcBatchItemWriter<FestivyDto> writer = new JdbcBatchItemWriter<>();
-        writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<FestivyDto>());
+    public JdbcBatchItemWriter<FestivityDto> writer() {
+    	JdbcBatchItemWriter<FestivityDto> writer = new JdbcBatchItemWriter<>();
+        writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<FestivityDto>());
         writer.setSql("INSERT INTO festivity (name, place, start, end) VALUES (:name, :place, :start, :end)");
         writer.setDataSource(dataSource);
         return writer;
@@ -73,7 +73,7 @@ public class BatchConfiguration {
     @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
-                .<FestivyDto, FestivyDto> chunk(100)
+                .<FestivityDto, FestivityDto> chunk(100)
                 .reader(reader())
                 .writer(writer())
                 .build();
