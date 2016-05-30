@@ -5,26 +5,34 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/**
+ * This entity represents the table festivity from the database
+ * @author Juan Joya
+ *
+ */
 @Entity
-@Table(name="portfolio")
+@Table(name = "festivity")
+@NamedQueries({ @NamedQuery(name = "Festivity.deleteAll", query = "DELETE FROM Festivity") })
 public class Festivity {
-	
+
 	@Id
-	@Column(name="name")
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="place")
+
+	@Column(name = "place")
 	private String place;
-	
-	@Column(name="start")
+
+	@Column(name = "start")
 	private Date start;
-	
-	@Column(name="end")
+
+	@Column(name = "end")
 	private Date end;
-	
-	public Festivity(){
+
+	public Festivity() {
 	}
 
 	public String getName() {
@@ -58,5 +66,5 @@ public class Festivity {
 	public void setEnd(Date end) {
 		this.end = end;
 	}
-	
+
 }

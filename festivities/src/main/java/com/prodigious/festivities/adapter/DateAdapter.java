@@ -5,6 +5,11 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+/**
+ * Transform String date information into Dates objects
+ * @author Juan Joya
+ *
+ */
 public class DateAdapter extends XmlAdapter<String, Date>{
 	
 	private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");

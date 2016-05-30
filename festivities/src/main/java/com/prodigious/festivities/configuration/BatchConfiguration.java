@@ -1,7 +1,5 @@
 package com.prodigious.festivities.configuration;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 import org.springframework.batch.core.Job;
@@ -21,6 +19,11 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 import com.prodigious.festivities.dto.FestivyDto;
 
+/**
+ * Enable batch processing to storage festivities.xml
+ * @author Juan Joya
+ *
+ */
 @Configuration
 @EnableBatchProcessing
 public class BatchConfiguration {
@@ -30,9 +33,6 @@ public class BatchConfiguration {
 
     @Autowired
     public StepBuilderFactory stepBuilderFactory;
-    
-    @PersistenceContext
-    public EntityManager em;
     
     @Autowired
     public DataSource dataSource;

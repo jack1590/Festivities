@@ -8,6 +8,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.prodigious.festivities.adapter.DateAdapter;
 
+/**
+ * This class represents in a plain object the entity Festivity
+ * @author Juan Joya
+ *
+ */
 @XmlRootElement(name = "festivity")
 public class FestivyDto {
 	

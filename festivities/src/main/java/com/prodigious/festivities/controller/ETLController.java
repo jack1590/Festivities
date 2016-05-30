@@ -12,28 +12,44 @@ import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteExcep
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.prodigious.festivities.service.FestivityService;
+
+
+/**
+ * This Controller handle the ETL process to storage information about festivities  
+ * @author Juan Joya
+ *
+ */
 @Controller
 @RequestMapping("/xmlToDataBase")
-public class CargarController {
+public class ETLController {
 
 	@Autowired
-	JobLauncher importFile;
+	JobLauncher jobLauncher;
 	
 	@Autowired
 	Job importFestivitiesJob;
 	
+	@Autowired
+	FestivityService festivityService;
+	
+	/**
+	 * Entry point to storage festivities.xml into database
+	 * @return url
+	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public String holaMundo(ModelMap model) {
+	public String loadInformation() {
 		boolean isComplete=false;
 		try {
+			this.festivityService.deleteAllFestivities();
+			
 			JobParameters jobParameters = 
 					  new JobParametersBuilder()
 					  .addLong("time",System.currentTimeMillis()).toJobParameters();
-			JobExecution execution = importFile.run(importFestivitiesJob, jobParameters);
+			JobExecution execution = jobLauncher.run(importFestivitiesJob, jobParameters);
 			isComplete = execution.getStatus().equals(BatchStatus.COMPLETED);
 		} catch (JobExecutionAlreadyRunningException e) {
 		} catch (JobRestartException e) {
