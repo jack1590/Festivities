@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class RESTExceptionHandler {
 
+	@ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIlegalArgument(IllegalArgumentException ex) {
+		return new ResponseEntity<String>(ex.getMessage(),
+				HttpStatus.BAD_REQUEST);
+    }
  
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> processValidationError(MethodArgumentNotValidException ex) {
