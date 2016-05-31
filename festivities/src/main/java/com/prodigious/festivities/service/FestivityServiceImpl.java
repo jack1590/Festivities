@@ -11,8 +11,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -130,9 +128,7 @@ public class FestivityServiceImpl implements FestivityService {
 	@Override
 	public void update(FestivityDto festivity) {
 		if (Objects.isNull(festivity.getId())) {
-			ResourceBundleMessageSource bean = new ResourceBundleMessageSource();
-            bean.setBasename("ValidationMessages");
-			throw new IllegalArgumentException(bean.getMessage("festivity.id.not.null", null, LocaleContextHolder.getLocale()));
+			throw new IllegalArgumentException("festivity.id.not.null");
 		} else {
 			Festivity entity = em.find(Festivity.class, festivity.getId());
 			this.setDataIntoentity(entity, festivity);
@@ -141,10 +137,14 @@ public class FestivityServiceImpl implements FestivityService {
 	}
 
 	private void setDataIntoentity(Festivity entity, FestivityDto festivity) {
-		entity.setName(festivity.getName());
-		entity.setPlace(festivity.getPlace());
-		entity.setStart(festivity.getStart());
-		entity.setEnd(festivity.getEnd());
+		if(festivity.getStart().before(festivity.getEnd())){
+			entity.setName(festivity.getName());
+			entity.setPlace(festivity.getPlace());
+			entity.setStart(festivity.getStart());
+			entity.setEnd(festivity.getEnd());
+		}else{
+			throw new IllegalArgumentException("festivity.date.start.is.after.end");
+		}
 	}
 
 }

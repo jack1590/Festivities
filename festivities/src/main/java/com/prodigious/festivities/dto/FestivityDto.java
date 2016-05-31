@@ -1,13 +1,16 @@
 package com.prodigious.festivities.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.prodigious.festivities.adapter.DateAdapter;
 
 /**
@@ -16,8 +19,14 @@ import com.prodigious.festivities.adapter.DateAdapter;
  *
  */
 @XmlRootElement(name = "festivity")
-public class FestivityDto {
+public class FestivityDto implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@XmlAttribute
 	private Long id;
 	
 	@NotNull(message="{festivity.name.not.null}")
@@ -33,11 +42,13 @@ public class FestivityDto {
 	@NotNull(message="{festivity.startDate.not.null}")
 	@XmlElement(name = "start")
     @XmlJavaTypeAdapter(type = Date.class, value = DateAdapter.class)
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
 	private Date start;
 	
 	@NotNull(message="{festivity.endDate.not.null}")
 	@XmlElement(name = "end")
     @XmlJavaTypeAdapter(type = Date.class, value = DateAdapter.class)
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
 	private Date end;
 	
 	public FestivityDto(){
