@@ -27,7 +27,7 @@ public class RESTExceptionHandler {
 		bean.setBasename("ValidationMessages");
 		return new ResponseEntity<String>(bean.getMessage(
 				"festivity.exception.general.error", null,
-				LocaleContextHolder.getLocale()), HttpStatus.BAD_REQUEST);
+				LocaleContextHolder.getLocale()), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(IllegalArgumentException.class)
