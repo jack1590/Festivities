@@ -56,7 +56,7 @@ public class ETLController {
 		} catch (JobInstanceAlreadyCompleteException e) {
 		} catch (JobParametersInvalidException e) {
 		}
-		return "pages/"+(isComplete?"/cargaCompleta.html":"errorCarga.html");
+		return "pages/"+(isComplete?"/complete.html":"error.html");
 	}
 
 }
