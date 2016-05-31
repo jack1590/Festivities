@@ -26,13 +26,10 @@
 		<apache.commons.version>3.0</apache.commons.version>
 		<apache.commons.fileupload.version>1.2</apache.commons.fileupload.version>
 		<spring.batch.version>3.0.7.RELEASE</spring.batch.version>
-<<<<<<< HEAD
 		<spring.oxm.version>3.0.4.RELEASE</spring.oxm.version>
 		<jackson.dataformat.version>2.7.4</jackson.dataformat.version>
 		<woodstox.version>4.4.1</woodstox.version>
 		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
-=======
->>>>>>> 9be42d3825bd508aefff2e1af507aa53b5394729
 	</properties>
 
 	<build>
@@ -76,11 +73,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
-<<<<<<< HEAD
 			<version>${spring.oxm.version}</version>
-=======
-			<version>3.0.4.RELEASE</version>
->>>>>>> 9be42d3825bd508aefff2e1af507aa53b5394729
 		</dependency>
 
 		<dependency>
@@ -127,20 +120,12 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
-<<<<<<< HEAD
 			<version>${jackson.dataformat.version}</version>
-=======
-			<version>2.7.4</version>
->>>>>>> 9be42d3825bd508aefff2e1af507aa53b5394729
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.woodstox</groupId>
 			<artifactId>woodstox-core-asl</artifactId>
-<<<<<<< HEAD
 			<version>${woodstox.version}</version>
-=======
-			<version>4.4.1</version>
->>>>>>> 9be42d3825bd508aefff2e1af507aa53b5394729
 		</dependency>
 
 		<!-- ORM -->
@@ -171,11 +156,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-<<<<<<< HEAD
 			<version>${hibernate.validator.version}</version>
-=======
-			<version>4.2.0.Final</version>
->>>>>>> 9be42d3825bd508aefff2e1af507aa53b5394729
 		</dependency>
 
 	</dependencies>
